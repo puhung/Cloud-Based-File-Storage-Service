@@ -7,9 +7,9 @@ import (
 )
 
 type MetaStore struct {
-	FileMetaMap    map[string]*FileMetaData
-	BlockStoreAddr string
-	UnimplementedMetaStoreServer
+	FileMetaMap                  map[string]*FileMetaData
+	BlockStoreAddr               string
+	UnimplementedMetaStoreServer // this line is the grammar for grpc to claim that this struc implement the MetaStoreserverInterface
 }
 
 func (m *MetaStore) GetFileInfoMap(ctx context.Context, _ *emptypb.Empty) (*FileInfoMap, error) {

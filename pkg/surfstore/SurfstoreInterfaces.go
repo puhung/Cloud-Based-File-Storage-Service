@@ -6,6 +6,7 @@ import (
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
+// Server side call
 type MetaStoreInterface interface {
 	// Retrieves the server's FileInfoMap
 	GetFileInfoMap(ctx context.Context, _ *emptypb.Empty) (*FileInfoMap, error)
@@ -30,6 +31,7 @@ type BlockStoreInterface interface {
 	HasBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
 }
 
+// Client side Call
 type ClientInterface interface {
 	// MetaStore
 	GetFileInfoMap(serverFileInfoMap *map[string]*FileMetaData) error
