@@ -81,7 +81,3 @@ func NewMetaStore(blockStoreAddr string) *MetaStore {
 		BlockStoreAddr: blockStoreAddr,
 	}
 }
-
-func checkHash(fileMetaDataBlockHashList []string, MetaStoreFileMetaDataBlockHashList []string) bool {
-
-}
