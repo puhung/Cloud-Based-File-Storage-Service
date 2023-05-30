@@ -75,14 +75,25 @@ func startServer(hostAddr string, serviceType string, blockStoreAddr string) err
 	grpcServer := grpc.NewServer()
 
 	// Register RPC services
-	metaStore := surfstore.NewMetaStore(blockStoreAddr)
-	surfstore.RegisterMetaStoreServer(grpcServer, metaStore) // RegisterMetaStoreServer is compiled from MetaStore service in proto file
-	blockStore := surfstore.NewBlockStore()
-	surfstore.RegisterBlockStoreServer(grpcServer, blockStore)
+	if serviceType == "both" {
+		metaStore := surfstore.NewMetaStore(blockStoreAddr)
+		surfstore.RegisterMetaStoreServer(grpcServer, metaStore) // RegisterMetaStoreServer is compiled from MetaStore service in proto file
+		blockStore := surfstore.NewBlockStore()
+		surfstore.RegisterBlockStoreServer(grpcServer, blockStore)
+	} else if serviceType == "meta" {
+		metaStore := surfstore.NewMetaStore(blockStoreAddr)
+		surfstore.RegisterMetaStoreServer(grpcServer, metaStore)
+	} else if serviceType == "block" {
+		blockStore := surfstore.NewBlockStore()
+		surfstore.RegisterBlockStoreServer(grpcServer, blockStore)
+	}
 
 	// Start listening and serving
 	lis, err := net.Listen("tcp", hostAddr)
 	if err != nil {
+		fmt.Println(hostAddr)
+		fmt.Println(serviceType)
+		fmt.Println(blockStoreAddr)
 		return fmt.Errorf("failed to listen: %v", err)
 	}
 	if err := grpcServer.Serve(lis); err != nil {
