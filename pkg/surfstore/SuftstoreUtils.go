@@ -105,6 +105,8 @@ func ClientSync(client RPCClient) {
 	var serverFileInfoMap map[string]*FileMetaData
 	var blockStoreAddr string
 	client.GetBlockStoreAddr(&blockStoreAddr)
+	client.GetFileInfoMap(&serverFileInfoMap)
+	PrintMetaMap(serverFileInfoMap)
 	for fileName, fileMetadata := range fileMetaMap {
 
 		var version int32

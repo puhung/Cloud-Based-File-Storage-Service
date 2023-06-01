@@ -2,6 +2,7 @@ package surfstore
 
 import (
 	context "context"
+	"fmt"
 	"sync"
 
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -44,7 +45,7 @@ func (m *MetaStore) UpdateFile(ctx context.Context, fileMetaData *FileMetaData) 
 					}
 				}
 			}
-
+			fmt.Println("The same is: ", same)
 			if same {
 				return &Version{Version: fileMetaData.Version}, nil
 			} else {
